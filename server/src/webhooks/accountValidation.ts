@@ -8,7 +8,7 @@ const dummyAccounts: Record<string, { balance: number; name: string }> = {
   "0987654321": { balance: 10000, name: "Saugat Dawadi" },
   "1234567891": { balance: 0, name: "Sudip Poudel" },
   "0123456789": { balance: 10000000, name: "Vardan Shrestha" },
-  "0000000000": { balance: 10000000, name: "Madhusudhan Sapkota " },
+  "0000000000": { balance: 10000000, name: "Madhusudhan Sapkota" },
 };
 
 router.post("/validate-account", (req: Request, res: Response) => {
