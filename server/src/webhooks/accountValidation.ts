@@ -4,8 +4,11 @@ import { Request, Response } from "express";
 const router = express.Router();
 
 const dummyAccounts: Record<string, { balance: number; name: string }> = {
-  "1234567890": { balance: 5000, name: "John Doe" },
-  "0987654321": { balance: 10000, name: "Jane Smith" },
+  "1234567890": { balance: 5000, name: "Kushal Ghimire" },
+  "0987654321": { balance: 10000, name: "Saugat Dawadi" },
+  "1234567891": { balance: 0, name: "Sudip Poudel" },
+  "0123456789": { balance: 10000000, name: "Vardan Shrestha" },
+  "0000000000": { balance: 10000000, name: "Madhusudhan Sapkota " },
 };
 
 router.post("/validate-account", (req: Request, res: Response) => {
@@ -32,7 +35,7 @@ router.post("/validate-account", (req: Request, res: Response) => {
   } else {
     res.json({
       success: false,
-      message: "Invalid account name or account numbersss",
+      message: "Invalid account name or account number",
     });
   }
 });

@@ -98,12 +98,15 @@ export async function processMessage(
         id: currentNode.childrenIds[0],
       });
 
-      response = nextNode
-        ? nextNode.text.replace(
-            "${balance}",
-            webhookResult.data?.balance?.toString() || ""
-          )
-        : webhookResult.message;
+      if (!nextNode)
+        throw createError("Next node not found for success path", 404);
+
+      response = nextNode.text.replace(
+        "${balance}",
+        webhookResult.data?.balance
+          ? webhookResult.data.balance.toString()
+          : "Unable to retrieve balance"
+      );
 
       if (webhookResult.data) {
         chat.context.tempData = {
@@ -115,7 +118,12 @@ export async function processMessage(
       nextNode = await DecisionTreeNode.findOne({
         id: currentNode.childrenIds[1],
       });
-      response = webhookResult.message || "Invalid input. Please try again.";
+
+      if (!nextNode)
+        throw createError("Next node not found for failure path", 404);
+
+      response =
+        nextNode.text || "Account information is invalid. Please try again.";
     }
   } else if (nodeType === "bot_response") {
     const selectedOption = currentNode.options?.find(

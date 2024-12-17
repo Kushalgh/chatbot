@@ -7,6 +7,7 @@ export async function startChat(req: Request, res: Response) {
     const chat = await chatService.startChat();
     res.status(201).json({
       sessionId: chat.sessionId,
+      options: ["Balance Inquiry", "Loan Information"],
       message: chat.messages[0].text,
     });
   } catch (error) {
@@ -18,6 +19,7 @@ export async function sendMessage(req: Request, res: Response) {
   try {
     const { sessionId, message } = req.body;
     const response = await chatService.processMessage(sessionId, message);
+    console.log(response, "response");
     res.json({
       sessionId,
       message: response.response,
